@@ -38,10 +38,12 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   exports: [
     FormsModule,
+    MomentModule,
     ReactiveFormsModule,
     CdkTableModule,
     MatAutocompleteModule,

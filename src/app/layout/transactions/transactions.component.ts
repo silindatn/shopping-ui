@@ -15,12 +15,10 @@ export class TransactionsComponent implements OnInit {
 
   displayedColumns = [
     'name',
-  'request',
-  'response',
-  // 'user',
-  // 'product',
-  'amount',
-  'TransactionDate'
+    'user',
+    'product',
+    'amount',
+    'TransactionDate'
   ];
   dataSource = new MatTableDataSource<ITransaction>([]);
   user: IUser;
@@ -38,7 +36,7 @@ export class TransactionsComponent implements OnInit {
     if(this.user.role === 'user'){
       query['user'] = this.user._id;
     }
-        vm.http.Post('http://localhost:8880/product/transactions', query)
+        vm.http.Post('http://localhost:8880/product/transactions',{query: query})
         .subscribe((res: ITransaction[]) => {
           console.log(res)
           if (res['transactions']) {

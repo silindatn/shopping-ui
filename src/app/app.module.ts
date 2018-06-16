@@ -13,7 +13,7 @@ import { AuthService } from './shared/services/auth.service';
 import { TokenInterceptor } from './shared/services/auth.interceptor';
 import { RequestService } from './shared/services/request.service';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
-
+import { MomentModule } from 'angular2-moment';
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
     /* for development
@@ -29,6 +29,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     imports: [
         CommonModule,
         BrowserModule,
+        MomentModule,
         BrowserAnimationsModule,
         HttpClientModule,
         ToastrModule.forRoot(),
