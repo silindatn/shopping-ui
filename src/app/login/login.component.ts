@@ -40,9 +40,15 @@ export class LoginComponent implements OnInit {
         .subscribe((res) => {
           vm.loginForm.markAsPristine();
           vm.isLoading = false;
+          console.log(res)
           if (res['token']) {
             sessionStorage.setItem('user', JSON.stringify(res));
+            if(res['role'] === 'user'){
             vm.router.navigate(['/dashboard'], { replaceUrl: true });
+            } else if (res['role'] === 'admin') {
+                vm.router.navigate(['/transactions'], { replaceUrl: true });
+
+            }
             localStorage.setItem('isLoggedin', 'true');
           } else {
               vm.toastr.error('Technical error has occured, please try again later or contact your system administrator', 'ERROR');

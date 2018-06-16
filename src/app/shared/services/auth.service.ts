@@ -4,7 +4,7 @@ import decode from 'jwt-decode';
 export class AuthService {
   public getToken(): string {
     const  user = JSON.parse(sessionStorage.getItem('user'));
-    return user.token;
+    return user!=undefined? user.token: null;
   }
   public isAuthenticated(): boolean {
     // get the token

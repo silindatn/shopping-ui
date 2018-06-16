@@ -9,6 +9,10 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'dashboard' },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+            { path: 'purchase', loadChildren: './purchase/purchase.module#PurchaseModule' },
+            { path: 'users', loadChildren: './users/users.module#UsersModule' },
+            { path: 'product', loadChildren: './product/product.module#ProductModule' },
+            { path: 'transactions', loadChildren: './transactions/transactions.module#TransactionsModule' },
             { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
             { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
             { path: 'forms', loadChildren: './form/form.module#FormModule' },

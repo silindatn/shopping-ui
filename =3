@@ -1,0 +1,6 @@
+jasmine-core@2.8.0 node_modules/jasmine/node_modules/jasmine-core -> node_modules/protractor/node_modules/jasmine-core
+shopping-ui@6.0.0 /home/thulanis/Projects/shopping-ui
+├── jasmine@3.1.0 
+└─┬ protractor@5.3.2
+  └── jasmine@2.8.0 
+

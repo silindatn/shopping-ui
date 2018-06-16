@@ -12,6 +12,7 @@ import { AuthGuard } from './shared';
 import { AuthService } from './shared/services/auth.service';
 import { TokenInterceptor } from './shared/services/auth.interceptor';
 import { RequestService } from './shared/services/request.service';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -30,6 +31,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        ToastrModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -46,6 +48,7 @@ export const createTranslateLoader = (http: HttpClient) => {
             useClass: TokenInterceptor,
             multi: true
           },
+          ToastrService,
           RequestService,
           AuthService],
     bootstrap: [AppComponent]

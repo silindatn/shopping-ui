@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { IUser } from '../../../shared/interface/user.interface';
 
 @Component({
     selector: 'app-sidebar',
@@ -10,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SidebarComponent {
     isActive: boolean = false;
     showMenu: string = '';
+    user:IUser;
     pushRightClass: string = 'push-right';
 
     constructor(private translate: TranslateService, public router: Router) {
@@ -17,6 +19,14 @@ export class SidebarComponent {
         this.translate.setDefaultLang('en');
         const browserLang = this.translate.getBrowserLang();
         this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : 'en');
+        this.user = JSON.parse(sessionStorage.getItem('user'));
+        try{
+            if(!this.user.name) {
+                this.router.navigate(['/login'], { replaceUrl: true });
+            }
+        } catch(e){
+            this.router.navigate(['/login'], { replaceUrl: true });
+        }
 
         this.router.events.subscribe(val => {
             if (

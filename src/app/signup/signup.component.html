@@ -1,28 +1,44 @@
 <div class="login-page" [@routerTransition]>
     <div class="row justify-content-md-center">
         <div class="col-md-4">
-            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
-            <h1>shopping-ui</h1>
-            <form role="form">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Full Name">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Email">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Repeat Password">
-                    </div>
-                </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']"> Register </a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
-            </form>
+            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
+            <h4 class="card-title text-center">
+                <!--<i class="fa fa-3x fa-user-circle-o text-muted"></i><br/>-->
+                <br/>
+                <strong>Online Shopping</strong>
+              </h4>
+              <form role="form" (ngSubmit)="onLoggedin()" [formGroup]="loginForm" novalidate>
+                  <mat-form-field>
+                      <input matInput  formControlName="name" placeholder="Name" [type]="'text'">
+                      <mat-error [hidden]="loginForm.controls.name.valid || loginForm.controls.name.untouched">
+                          Name is required
+                      </mat-error>  
+                      <mat-error [hidden]="!error || isLoading">
+                          Name or password incorrect.
+                      </mat-error> 
+                  </mat-form-field>
+                <mat-form-field>
+                    <input matInput  formControlName="username" placeholder="Username" [type]="'text'">
+                    <mat-error [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched">
+                        Username is required
+                    </mat-error>  
+                    <mat-error [hidden]="!error || isLoading">
+                        Username or password incorrect.
+                    </mat-error> 
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput  formControlName="password" placeholder="Password" [type]="hide ? 'password' : 'text'">
+                  <mat-icon matSuffix (click)="hide = !hide"><i class="fa {{hide ? 'fa-eye' : 'fa-eye-slash'}}"></i></mat-icon>
+                  <mat-error [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched">
+                      Password is required
+                  </mat-error>  
+              </mat-form-field>
+                <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid || isLoading">
+                  <i class="fa fa-cog fa-spin" [hidden]="!isLoading"></i>
+                  <span translate>Register</span>
+                </button>
+              </form>
+              <a class="btn rounded-btn" [routerLink]="['/login']">Login</a>
         </div>
     </div>
 </div>
