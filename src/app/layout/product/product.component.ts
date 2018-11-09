@@ -16,14 +16,14 @@ import { IProduct } from './../../shared/interface/product.interface';
 export class ProductComponent implements OnInit {
 
   displayedColumns = [
-  'name',
-  'price',
-  'special_discount'
+    'name',
+    'price',
+    'special_discount'
   ];
   dataSource = new MatTableDataSource<IProduct>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(public dialog: MatDialog, private http: RequestService,private toastr: ToastrService) { }
+  constructor(public dialog: MatDialog, private http: RequestService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -44,17 +44,18 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  getProducts(){
+  getProducts() {
     const vm = this;
-        vm.http.Get('http://localhost:8880/product/')
-        .subscribe((res: IProduct[]) => {
-          console.log(res)
-          if (res['products']) {
-            vm.dataSource.data = res['products'];
-          } else {
-              vm.toastr.error('No prodcts found', 'NOTE');
-          }
-    });
+    vm.http.Get('http://localhost:8880/product/')
+      .subscribe((res: IProduct[]) => {
+        if (res['products']) {
+          vm.dataSource.data = res['products'];
+        } else {
+          vm.toastr.error('No prodcts found', 'NOTE');
+        }
+      }, (error) => {
+        vm.toastr.error('No prodcts found', 'NOTE');
+      });
   }
 
 }

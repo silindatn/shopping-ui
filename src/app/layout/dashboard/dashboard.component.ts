@@ -34,12 +34,14 @@ export class DashboardComponent implements OnInit {
       if(!vm.balance) {
           vm.http.Post('http://localhost:8880/user/account_balance/', {name: vm.user.name})
           .subscribe((res) => {
-            console.log(res)
             if (res['code'] === '00') {
               vm.balance = res['data'];
             } else {
                 vm.toastr.error('No account balance found', 'NOTE');
             }
+      }, (error) => {
+        this.balance = null;
+        vm.toastr.error('No account balance found', 'NOTE');
       });
     }
     }

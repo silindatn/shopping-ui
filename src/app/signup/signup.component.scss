@@ -1,2 +1,10 @@
 // shared css for the login and signup page
 @import "../login/login.component.scss";
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }

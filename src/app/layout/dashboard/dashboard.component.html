@@ -1,6 +1,6 @@
 <div [@routerTransition]>
     <h2 class="text-muted">Dashboard <small>Statistics Overview</small></h2>
-    <div class="row">
+    <div class="row" *ngIf="balance">
         <div class="col-md-12">
             <app-stat [bgClass]="'primary'" [icon]="'fa-money'" [count]="balance.balance" [label]="'Account Balance'" [data]="1" ></app-stat>
         </div>

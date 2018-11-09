@@ -93,3 +93,12 @@ $topnav-background-color: #222;
         border: 2px solid #fff;
     }
 }
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }

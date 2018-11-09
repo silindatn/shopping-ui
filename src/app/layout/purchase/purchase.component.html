@@ -1,146 +1,154 @@
-<div [@routerTransition]>
-    <app-page-header [heading]="'Purchase'" [icon]="'fa-bar-chart-o'"></app-page-header>
-    <div class="row">
-            <mat-horizontal-stepper [linear]="'true'" #stepper>
-                    <mat-step>
-                      <form>
-                        <ng-template matStepLabel>Select Product</ng-template>
-                        <mat-form-field>
-                                <mat-select [(value)]="selected_product">
-                                  <mat-option>None</mat-option>
-                                  <mat-option *ngFor="let product of products" [value]="product.name">{{product.name}} ({{product.price}})</mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                        <div>
-                          <button [disabled]="selected_product === ''" mat-button matStepperNext (click)="count()">Next</button>
-                        </div>
-                      </form>
-                    </mat-step>
-                    <mat-step>
-                      <form>
-                        <ng-template matStepLabel>Purchase Details</ng-template>
-                        <div class="container">
-                          <div class="row">
-                            <div class="col-sm">
-                              Product Name:
-                            </div>
-                            <div class="col-sm">
-                              {{product.name}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm">
-                              Product Price:
-                            </div>
-                            <div class="col-sm">
-                              {{product.price}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm">
-                              Product discount:
-                            </div>
-                            <div class="col-sm">
-                              {{product.special_discount}} %
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm">
-                              Account Balance:
-                            </div>
-                            <div class="col-sm">
-                              {{balance.balance}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm">
-                              Remaining Balance:
-                            </div>
-                            <div class="col-sm">
-                              {{balance.balance - product.price}}
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <button mat-button matStepperPrevious>Back</button>
-                          <button [hidden]="(balance.balance - product.price)>0" mat-button (click) = "topup()">Top Up</button>
-                          <button [hidden]="(balance.balance - product.price)<0" mat-button (click) = "calculate()" matStepperNext>Next</button>
-                        </div>
-                      </form>
-                    </mat-step>
-                    <mat-step>
-                      <ng-template matStepLabel>Confirm Purchase</ng-template>
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-sm">
-                            Product Name:
-                          </div>
-                          <div class="col-sm">
-                            {{product.name}}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm">
-                            Product Price:
-                          </div>
-                          <div class="col-sm">
-                            {{product.price}}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm">
-                            Product discount:
-                          </div>
-                          <div class="col-sm">
-                            {{product.special_discount}} %
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm">
-                            Account Balance:
-                          </div>
-                          <div class="col-sm">
-                            {{balance.balance}}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm">
-                            Special Discount amount:
-                          </div>
-                          <div class="col-sm">
-                            {{special_discount_amount}}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm">
-                            Price Discount:
-                          </div>
-                          <div class="col-sm">
-                            {{price_discount}}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm">
-                            Final Price:
-                          </div>
-                          <div class="col-sm">
-                            {{final_amount}}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm">
-                            Remaining Balance:
-                          </div>
-                          <div class="col-sm">
-                            {{balance.balance - final_amount}}
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button [hidden]="(balance.balance - final_amount)<0" (click)="onLoggedin()">Confirm</button>
-                      </div>
-                    </mat-step>
-                  </mat-horizontal-stepper>
-    </div>
+<app-page-header [heading]="'Purchase'" [icon]="'fa-bar-chart-o'"></app-page-header>
+<div class="row">
+  <div class="col-12">
+    <mat-horizontal-stepper [linear]="'true'" #stepper>
+      <mat-step>
+        <mat-card>
+          <form>
+            <ng-template matStepLabel>Select Product</ng-template>
+            <mat-form-field>
+              <mat-select [(value)]="selected_product">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let product of products" [value]="product.name">{{product.name}} ({{product.price}})</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <button color="primary" [disabled]="selected_product === ''" mat-button matStepperNext (click)="count()">Next</button>
+            </div>
+          </form>
+        </mat-card>
+      </mat-step>
+      <mat-step>
+        <mat-card>
+          <form>
+            <ng-template matStepLabel>Purchase Details</ng-template>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  Product Name:
+                </div>
+                <div class="col-sm">
+                  {{product.name}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  Product Price:
+                </div>
+                <div class="col-sm">
+                  {{product.price}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  Product discount:
+                </div>
+                <div class="col-sm">
+                  {{product.special_discount}} %
+                </div>
+              </div>
+              <div class="row" *ngIf="balance != null">
+                <div class="col-sm">
+                  Account Balance:
+                </div>
+                <div class="col-sm">
+                  {{balance.balance}}
+                </div>
+              </div>
+              <div class="row" *ngIf="balance != null">
+                <div class="col-sm">
+                  Remaining Balance:
+                </div>
+                <div class="col-sm">
+                  {{balance.balance - product.price}}
+                </div>
+              </div>
+            </div>
+            <div>
+              <button color="secondary" mat-button matStepperPrevious>Back</button>
+              <button color="primary" [hidden]="balance == null || (balance.balance - product.price)>0" mat-button (click)="topup()">Top
+                Up</button>
+              <button color="primary" [hidden]="balance == null || (balance.balance - product.price)<0" mat-button (click)="calculate()"
+                matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-card>
+      </mat-step>
+      <mat-step>
+        <mat-card>
+          <ng-template matStepLabel>Confirm Purchase</ng-template>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                Product Name:
+              </div>
+              <div class="col-sm">
+                {{product.name}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                Product Price:
+              </div>
+              <div class="col-sm">
+                {{product.price}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                Product discount:
+              </div>
+              <div class="col-sm">
+                {{product.special_discount}} %
+              </div>
+            </div>
+            <div class="row" *ngIf="balance != null">
+              <div class="col-sm">
+                Account Balance:
+              </div>
+              <div class="col-sm">
+                {{balance.balance}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                Special Discount amount:
+              </div>
+              <div class="col-sm">
+                {{special_discount_amount}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                Price Discount:
+              </div>
+              <div class="col-sm">
+                {{price_discount}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                Final Price:
+              </div>
+              <div class="col-sm">
+                {{final_amount}}
+              </div>
+            </div>
+            <div class="row" *ngIf="balance != null">
+              <div class="col-sm">
+                Remaining Balance:
+              </div>
+              <div class="col-sm">
+                {{balance.balance - final_amount}}
+              </div>
+            </div>
+          </div>
+          <div>
+            <button color="secondary" mat-button matStepperPrevious>Back</button>
+            <button color="primary" mat-button [hidden]="balance == null || (balance.balance - final_amount)<0" (click)="onLoggedin()">Confirm</button>
+          </div>
+        </mat-card>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
 </div>

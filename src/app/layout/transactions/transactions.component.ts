@@ -24,27 +24,28 @@ export class TransactionsComponent implements OnInit {
   user: IUser;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private http: RequestService,private toastr: ToastrService) { }
+  constructor(private http: RequestService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('user'));
     this.dataSource.paginator = this.paginator;
     this.getTransactions();
   }
-  getTransactions(query: any = {}){
+  getTransactions(query: any = {}) {
     const vm = this;
-    if(this.user.role === 'user'){
+    if (this.user.role === 'user') {
       query['user'] = this.user._id;
     }
-        vm.http.Post('http://localhost:8880/product/transactions',{query: query})
-        .subscribe((res: ITransaction[]) => {
-          console.log(res)
-          if (res['transactions']) {
-            vm.dataSource.data = res['transactions'];
-          } else {
-              vm.toastr.error('No transactions found', 'NOTE');
-          }
-    });
+    vm.http.Post('http://localhost:8880/product/transactions', { query: query })
+      .subscribe((res: ITransaction[]) => {
+        if (res['transactions']) {
+          vm.dataSource.data = res['transactions'];
+        } else {
+          vm.toastr.error('No transactions found', 'NOTE');
+        }
+      }, (error) => {
+        vm.toastr.error('No transactions found', 'NOTE');
+      });
   }
 
 }

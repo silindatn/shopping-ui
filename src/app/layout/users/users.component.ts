@@ -14,13 +14,13 @@ export class UsersComponent implements OnInit {
 
   displayedColumns = [
     'name',
-  'username',
-  'role'
+    'username',
+    'role'
   ];
   dataSource = new MatTableDataSource<IUser>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(public dialog: MatDialog, private http: RequestService,private toastr: ToastrService) { }
+  constructor(public dialog: MatDialog, private http: RequestService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -35,17 +35,18 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  getUsers(){
+  getUsers() {
     const vm = this;
-        vm.http.Get('http://localhost:8880/user/')
-        .subscribe((res: IUser[]) => {
-          console.log(res)
-          if (res['users']) {
-            vm.dataSource.data = res['users'];
-          } else {
-              vm.toastr.error('No prodcts found', 'NOTE');
-          }
-    });
+    vm.http.Get('http://localhost:8880/user/')
+      .subscribe((res: IUser[]) => {
+        if (res['users']) {
+          vm.dataSource.data = res['users'];
+        } else {
+          vm.toastr.error('No users found', 'NOTE');
+        }
+      }, (error) => {
+        vm.toastr.error('No users found', 'NOTE');
+      });
   }
 
 }

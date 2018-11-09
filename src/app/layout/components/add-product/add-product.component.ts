@@ -17,22 +17,22 @@ export class AddProductComponent implements OnInit {
   image = '';
 
   constructor(public router: Router,
-              private formBuilder: FormBuilder,
-              private http: RequestService,
-              private dialogRef: MatDialogRef<AddProductComponent>,
-              public toastr:  ToastrService,
-              vcr: ViewContainerRef) {
+    private formBuilder: FormBuilder,
+    private http: RequestService,
+    private dialogRef: MatDialogRef<AddProductComponent>,
+    public toastr: ToastrService,
+    vcr: ViewContainerRef) {
   }
 
   ngOnInit() {
-      this.createForm();
+    this.createForm();
   }
 
   onLoggedin() {
-      this.isLoading = true;
-      const vm = this;
-      // vm.loginForm.value.image = vm.image;
-      vm.http.Post('http://localhost:8880/product/create', vm.loginForm.value)
+    this.isLoading = true;
+    const vm = this;
+    // vm.loginForm.value.image = vm.image;
+    vm.http.Post('http://localhost:8880/product/create', vm.loginForm.value)
       .subscribe((res) => {
         vm.loginForm.markAsPristine();
         vm.isLoading = false;
@@ -41,13 +41,15 @@ export class AddProductComponent implements OnInit {
           vm.toastr.success('Product Added successfully', 'NOTE');
 
         } else {
-            vm.toastr.error('Technical error has occured, please try again later or contact your system administrator', 'ERROR');
+          vm.toastr.error('Technical error has occured, please try again later or contact your system administrator', 'ERROR');
         }
+      }, (err) => {
+        vm.toastr.error('Technical error has occured, please try again later or contact your system administrator', 'ERROR');
       });
   }
   onFileChange(event) {
     let reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
+    if (event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {

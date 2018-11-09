@@ -22,21 +22,21 @@ export class AddUserComponent implements OnInit {
   Password = 'Enter password';
 
   constructor(public router: Router,
-              private dialogRef: MatDialogRef<AddUserComponent>,
-              private formBuilder: FormBuilder,
-              private http: RequestService,
-              public toastr:  ToastrService,
-              vcr: ViewContainerRef) {
+    private dialogRef: MatDialogRef<AddUserComponent>,
+    private formBuilder: FormBuilder,
+    private http: RequestService,
+    public toastr: ToastrService,
+    vcr: ViewContainerRef) {
   }
 
   ngOnInit() {
-      this.createForm();
+    this.createForm();
   }
 
   onLoggedin() {
-      this.isLoading = true;
-      const vm = this;
-      vm.http.Post('http://localhost:8880/user/create', vm.loginForm.value)
+    this.isLoading = true;
+    const vm = this;
+    vm.http.Post('http://localhost:8880/user/create', vm.loginForm.value)
       .subscribe((res) => {
         vm.loginForm.markAsPristine();
         vm.isLoading = false;
@@ -45,8 +45,10 @@ export class AddUserComponent implements OnInit {
           vm.toastr.success('User successfully added', 'NOTE');
 
         } else {
-            vm.toastr.error('Technical error has occured, please try again later or contact your system administrator', 'ERROR');
+          vm.toastr.error('Technical error has occured, please try again later or contact your system administrator', 'ERROR');
         }
+      }, (err) => {
+        vm.toastr.error('Technical error has occured, please try again later or contact your system administrator', 'ERROR');
       });
   }
 
